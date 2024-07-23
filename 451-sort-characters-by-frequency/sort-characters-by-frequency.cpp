@@ -7,7 +7,7 @@ public:
         }
         sort(s.begin(), s.end(), [&](char a, char b){
             if(mp[a]==mp[b]){
-                return a<b;
+                return a>b;
             } else {
                 return mp[a]>mp[b];
             }
