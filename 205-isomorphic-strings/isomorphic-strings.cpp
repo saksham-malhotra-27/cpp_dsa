@@ -4,27 +4,22 @@ public:
         if(s.length() != t.length()){
             return false;
         }
-        map <char,char> mp; // s to t 
-        map <char,char> mpp; // t to s 
-
+        if (s.length()==1 || t.length()==0){
+            return true;
+        }
+        map<char,char> first;
+        map<char,char> second;
         for(int i=0; i<s.length(); i++){
-            if((mp.find(s[i])==mp.end())){ // b is not present  
-               // fab   ghg
-                if(mpp.find(t[i])==mpp.end()){ // g is not present 
-                   mp[s[i]] = t[i]; mpp[t[i]] = s[i];
-                }
-                else { // g is present 
+            if(first.find(s[i])!=first.end() ){
+                if(first[s[i]]!=t[i]){
                     return false;
                 }
-
-            } 
-            //  it -> ['o','a'], iit-> ['r', 'h']
-            else { // second o is present 
-                auto it  = mp.find(s[i]); auto iit = mpp.find(t[i]);
-                if(it->second!=iit->first && it->first!=iit->second){
-                    // 'a'  != 
-                    // map ['a'] = 'b', it.first 'a' it.second 'b'
+            } else {
+                if(second.find(t[i])!=second.end()){
                     return false;
+                } else {
+                    first[s[i]] = t[i];
+                    second[t[i]] = s[i];
                 }
             }
         }
