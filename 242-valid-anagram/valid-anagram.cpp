@@ -1,9 +1,22 @@
-using namespace std;
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        sort(s.begin(), s.end());
-        sort(t.begin(), t.end());
-        return s==t;
+        if(s.length() != t.length()){
+            return false;
+        }
+        if(t.length()==0) return true;
+        int count[26]; 
+        
+        for(int i=0; i<s.length(); i++){
+            count[s[i]-'a']++;
+            count[t[i]-'a']--;
+        }
+
+        for(auto i: count){
+            if(i>0){
+                return false;
+            }
+        }
+        return true;
     }
 };
