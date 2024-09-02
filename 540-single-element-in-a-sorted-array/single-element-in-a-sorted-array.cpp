@@ -1,34 +1,30 @@
 class Solution {
 public:
-    int singleNonDuplicate(vector<int>& arr) {
-        int low = 0, high = arr.size()-1;
-        while(low < high){
-            int mid = low + (high-low)/2;
-            if( (mid == 0 && arr[mid] != arr[mid+1]) || (mid == arr.size()-1 && arr[mid]!= arr[mid+1]) || (arr[mid] != arr[mid-1] && arr[mid+1] != arr[mid]) ){
-                return arr[mid];
-            }
-            if( mid % 2 != 0){
-                if(arr[mid] == arr[mid-1]){
-                    low=mid+1;
+    int singleNonDuplicate(vector<int>& nums) {
+        int i=0; int j=nums.size()-1; 
+        if(nums.size()==1) return nums[0];
+        while(i<nums.size()){
+            int mid = i + (j-i)/2;
+            if((mid==0 && nums[mid]!=nums[mid+1]) || (mid==nums.size()-1 && nums[mid]!=nums[mid-1]) || (nums[mid]!=nums     [mid-1] && nums[mid]!=nums[mid+1]) )
+            { return nums[mid]; }
+            if(mid%2 == 0 ){
+                // even place 
+                
+                if(mid<nums.size()-1 && nums[mid+1]==nums[mid]){
+                    i=mid+1;
                 }
-                else{
-                    high=mid-1;
+                else {
+                    j=mid-1;
                 }
-            } else {
-                if(arr[mid]==arr[mid+1]){
-                    low = mid+ 1;
+            } else { 
+                // odd place 
+                if(mid<nums.size()-1 && nums[mid+1]!=nums[mid]){
+                    i = mid+1;
                 } else {
-                    high = mid -1 ; 
+                    j = mid-1;
                 }
             }
         }
-        return arr[low];
-    } 
+        return -1;
+    }
 };
-
-/*
-1,1,2,3,3,4,4,8,8
-0 1 2 3 4 5 6 7 8 
-
-
-*/
