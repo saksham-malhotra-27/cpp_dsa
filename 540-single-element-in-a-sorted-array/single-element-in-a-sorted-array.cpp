@@ -9,7 +9,6 @@ public:
             { return nums[mid]; }
             if(mid%2 == 0 ){
                 // even place 
-                
                 if(mid<nums.size()-1 && nums[mid+1]==nums[mid]){
                     i=mid+1;
                 }
