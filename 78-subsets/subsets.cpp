@@ -1,20 +1,20 @@
 class Solution {
 public:
-    vector<vector<int>> v;
-    void subsetsre(vector<int>& nums, int i, vector<int> v2){
-        if(i>=nums.size()){
-            v.push_back(v2); return;
+    vector<vector<int>> subsetsre(vector<int>& nums, int i, vector<int> v, vector<vector<int>> ans){
+        if(i==nums.size()){
+            ans.push_back(v);
+            return ans;
         }
-        v2.push_back(nums[i]);
-        subsetsre(nums, i+1, v2);
-        v2.pop_back();
-        subsetsre(nums, i+1, v2);
-        //v.push_back(v2);
-        return;
+        v.push_back(nums[i]);
+        auto a = subsetsre(nums, i+1, v, ans);
+        v.pop_back();
+        auto b = subsetsre(nums,i+1, v, ans);
+        a.insert(a.end(), b.begin(), b.end());
+        return a;
     }
 
     vector<vector<int>> subsets(vector<int>& nums) {
-        subsetsre(nums, 0, {});
-        return v;
+        return subsetsre(nums, 0, {}, {});
+
     }
 };
