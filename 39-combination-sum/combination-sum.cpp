@@ -9,9 +9,10 @@ public:
         auto a = summ(candidates,i+1, target, v, sum, ans);
         v.push_back(candidates[i]);
         auto b = summ(candidates, i, target, v, sum + candidates[i], ans);
-     //   auto c = summ(candidates, i+1, target, v, sum, ans);
+        //auto c = summ(candidates, i+1, target, v, sum + candidates[i], ans);
+        //a.insert(a.end(), c.begin(), c.end());
+        // didn't consider this because a + b together comprises of c as well 
         a.insert(a.end(), b.begin(), b.end());
-       // a.insert(a.end(), c.begin(), c.end());
         return a;
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
