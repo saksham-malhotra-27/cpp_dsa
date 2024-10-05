@@ -20,12 +20,7 @@ public:
         return false;
     }
     bool isSymmetric(TreeNode* root) {
-     if(root->left == nullptr && root->right  == nullptr){
-        return true;
-    }
-    if(root->left == nullptr || root->right  == nullptr){
-        return false;
-    }
+    
     return isSymm(root->left, root->right);
     }
 };
