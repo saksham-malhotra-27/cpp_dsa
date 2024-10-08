@@ -1,28 +1,29 @@
-struct v{
-    int height;
-    bool isValid;
-};
-
-
 class Solution {
 public:
-    v is(TreeNode* root){
+    int is(TreeNode* root){
         if(root==nullptr){
-            return {0, true};
+            return 0;
         }
-         if(root->left==nullptr && root->right==nullptr){
-            return {1, true};
+
+        int leftHeight = is(root->left);
+        if(leftHeight == -1){
+            return -1;
         }
-        v a,b ;
-        a =  is(root->left);
-        b = is(root->right);
-        a.isValid =  (a.isValid && b.isValid) && (abs(a.height-b.height)<=1);
-        a.height = max(a.height, b.height) + 1; 
-        return a;
+        int rightHeight = is(root->right);
+        if(rightHeight==-1){
+            return -1;
+        }
+
+        if(abs(leftHeight-rightHeight)>1){
+            return -1;
+        }
+
+        return max(leftHeight, rightHeight)+1;
         
-    }    
+            
+    }
     bool isBalanced(TreeNode* root) {
-       auto b = is(root);
-       return b.isValid;
+       return is(root)!=-1;
+
     }
 };
