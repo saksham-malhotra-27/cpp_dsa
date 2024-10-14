@@ -37,6 +37,26 @@ public:
 
     void flatten(TreeNode* root) {
       if (root == nullptr) return; 
-      flat(root);
+      auto curr = root; 
+
+      while(curr!=nullptr){
+        if(!curr->left){
+            curr = curr->right; 
+        } else {
+            auto pred = curr->left; 
+            while(pred->right && pred->right != curr){
+                pred = pred->right; 
+            }
+            if(!pred->right){
+                pred->right = curr; 
+                curr = curr->left;
+            } else {
+                pred->right = curr->right; 
+                curr->right=curr->left;
+                curr->left=nullptr; 
+                curr = pred->right; 
+            }
+        }
+      }
     }
 };
