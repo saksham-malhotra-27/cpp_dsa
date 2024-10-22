@@ -11,24 +11,22 @@
  */
 class Solution {
 public:
-    long long kthLargestLevelSum(TreeNode* root, int k) {
-        queue<TreeNode* > q; 
-        vector<long long> levelSums; 
-        q.push(root);
-        while(q.size()){
-            int size = q.size();
-            long long currsum = 0;
-            for(int i=0; i<size; i++){
-                auto n = q.front(); q.pop(); 
-                currsum += n->val;
-                if(n->left)  q.push(n->left);
-                if(n->right) q.push(n->right);
-            }
-            levelSums.push_back(currsum);
+    void sumup(TreeNode* root, int lvl, vector<long long> & sum){
+        if(sum.size()<=lvl){
+            sum.push_back(root->val);
+        } else {
+            sum[lvl] += root->val; 
         }
-        if(levelSums.size() < k) return -1;
-        sort(levelSums.rbegin(), levelSums.rend());  
+        if(root->left) sumup(root->left, lvl+1, sum);
+        if(root->right) sumup(root->right, lvl+1, sum);
+    }
+
+    long long kthLargestLevelSum(TreeNode* root, int k) {
+        vector<long long> sum;
+        sumup(root, 0, sum);
+        if(sum.size()<k) return -1; 
+        sort( sum.rbegin(), sum.rend());
         
-        return levelSums[k - 1];
+        return sum[k-1];
     }
 };
